@@ -14,12 +14,53 @@ import os
 from pathlib import Path
 
 
+def mostrar_ayuda():
+    """Muestra el mensaje de ayuda del programa"""
+    print("\n📄 Consulta de Facturas - API Verifactu")
+    print("=" * 45)
+    print("\n🎯 DESCRIPCIÓN:")
+    print("   Este programa consulta facturas desde la API de Verifactu")
+    print("   y guarda la respuesta JSON en un archivo local.")
+    print("\n📋 USO:")
+    print("   consulta.exe <invoice_id> <token> <nombre_archivo>")
+    print("\n📝 PARÁMETROS:")
+    print("   invoice_id     : ID único de la factura (UUID)")
+    print("   token          : Token de autorización de la API")
+    print("   nombre_archivo : Nombre del archivo donde guardar la respuesta")
+    print("\n💡 EJEMPLO:")
+    print("   consulta.exe 40b8a275-83e9-4aec-9133-b7b0462a1877 \\")
+    print("                4ed052656e3fdb3baefb5126f0044dd67c350bec \\")
+    print("                factura_76719.txt")
+    print("\n🌐 EQUIVALE AL COMANDO CURL:")
+    print("   curl --location 'https://verifactu.corsoft.com.es/api/invoices/<invoice_id>' \\")
+    print("        --header 'Authorization: Token <token>' \\")
+    print("        > <archivo_destino>")
+    print("\n🔒 NOTA DE SEGURIDAD:")
+    print("   - Nunca hardcodees tokens en el código")
+    print("   - Mantén los tokens seguros y rótalos regularmente")
+    print("\n" + "=" * 45)
+    print("\n⏸️  Presiona ENTER para continuar...")
+    input()
+
+
 def main():
     # Verificar que se proporcionen exactamente 3 parámetros
     if len(sys.argv) != 4:
-        print("Error: Se requieren exactamente 3 parámetros")
-        print("Uso: consulta.exe <invoice_id> <token> <nombre_archivo>")
-        print("Ejemplo: consulta.exe 40b8a275-83e9-4aec-9133-b7b0462a1877 4ed052656e3fdb3baefb5126f0044dd67c350bec 76719.txt")
+        if len(sys.argv) == 1:
+            # Si no se proporcionan parámetros, mostrar ayuda completa
+            mostrar_ayuda()
+        else:
+            # Si se proporcionan parámetros incorrectos, mostrar error y ayuda breve
+            print(f"\n❌ Error: Se requieren exactamente 3 parámetros (se proporcionaron {len(sys.argv)-1})")
+            print("\n📋 USO CORRECTO:")
+            print("   consulta.exe <invoice_id> <token> <nombre_archivo>")
+            print("\n💡 EJEMPLO:")
+            print("   consulta.exe 40b8a275-83e9-4aec-9133-b7b0462a1877 \\")
+            print("                4ed052656e3fdb3baefb5126f0044dd67c350bec \\")
+            print("                factura_76719.txt")
+            print("\n💬 Para más información, ejecuta el programa sin parámetros.")
+            print("\n⏸️  Presiona ENTER para continuar...")
+            input()
         sys.exit(1)
     
     # Obtener parámetros de línea de comandos
