@@ -1,10 +1,13 @@
-# 📄 Consulta de Facturas - API Verifactu
+# 📄 API Verifactu - Scripts de Consulta y Remisión
 
-Este proyecto contiene un script en Python que replica la funcionalidad de un comando `curl` para consultar facturas desde la API de Verifactu y guardar la respuesta en un archivo local.
+Este proyecto contiene scripts en Python que replican la funcionalidad de comandos `curl` para interactuar con la API de Verifactu:
+- **consulta.py**: Consultar facturas existentes (GET)
+- **remitir.py**: Enviar/remitir nuevas facturas (POST)
 
-## 🎯 Funcionalidad
+## 🎯 Funcionalidades
 
-El script realiza una petición GET a la API de Verifactu con autenticación por token y guarda la respuesta JSON en un archivo especificado.
+### 📥 consulta.py - Consultar Facturas
+Realiza una petición GET a la API de Verifactu para consultar facturas existentes con autenticación por token y guarda la respuesta JSON en un archivo especificado.
 
 **Equivale a este comando curl:**
 ```bash
@@ -13,12 +16,26 @@ curl --location 'https://verifactu.corsoft.com.es/api/invoices/40b8a275-83e9-4ae
      > C:\TWS\76719.txt
 ```
 
+### 📤 remitir.py - Enviar Facturas
+Realiza una petición POST a la API de Verifactu para enviar nuevas facturas con datos JSON y guarda la respuesta en un archivo especificado.
+
+**Equivale a este comando curl:**
+```bash
+curl --location 'https://verifactu.corsoft.com.es/api/invoices/' \
+     --header 'Content-Type: application/json' \
+     --header 'Authorization: Token fsdfsdfsdf' \
+     --data '{"invoice_type":"F1","customer_name":"A.C.E.S., S.L.","customer_country":"ES",...}' \
+     > C:\VELNEO\TRASPASOS\bugaderia\5.txt
+```
+
 ## 📋 Requisitos
 
 - Python 3.7 o superior
 - Biblioteca `requests` (incluida en `requirements.txt`)
 
-## 🚀 Uso del Script
+## 🚀 Uso de los Scripts
+
+### 📥 consulta.py - Para Consultar Facturas
 
 ### Como script Python:
 
@@ -56,19 +73,60 @@ python consulta.py 40b8a275-83e9-4aec-9133-b7b0462a1877 4ed052656e3fdb3baefb5126
 python3 consulta.py 40b8a275-83e9-4aec-9133-b7b0462a1877 4ed052656e3fdb3baefb5126f0044dd67c350bec 76719.txt
 ```
 
+### 📤 remitir.py - Para Enviar Facturas
+
+### Como script Python:
+
+**En Windows:**
+```cmd
+python remitir.py <token> <json_data> <ruta_archivo>
+```
+
+**En Linux/MacOS:**
+```bash
+python3 remitir.py <token> <json_data> <ruta_archivo>
+```
+
+### Como ejecutable:
+
+**En Windows:**
+```cmd
+remitir.exe <token> <json_data> <ruta_archivo>
+```
+
+**En Linux/MacOS:**
+```bash
+./remitir <token> <json_data> <ruta_archivo>
+```
+
+### Ejemplo:
+
+**En Windows:**
+```cmd
+remitir.exe "fsdfsdfsdf" "{\"invoice_type\":\"F1\",\"customer_name\":\"A.C.E.S., S.L.\",\"customer_country\":\"ES\",\"customer_nif\":\"B07055858\",\"serie\":\"25\",\"number\":\"4\",\"base_1\":4.22,\"tax_percentage_1\":21,\"tax_cuota_1\":0.88,\"operation_clasification_1\":\"S1\",\"regime_key_1\":\"\",\"total\":5.1,\"date\":\"20-06-2025\",\"time\":\"9:32\",\"claveapi\":\"-128\"}" "C:\\VELNEO\\TRASPASOS\\bugaderia\\5.txt"
+```
+
+**En Linux/MacOS:**
+```bash
+./remitir "fsdfsdfsdf" '{"invoice_type":"F1","customer_name":"A.C.E.S., S.L.","customer_country":"ES","customer_nif":"B07055858","serie":"25","number":"4","base_1":4.22,"tax_percentage_1":21,"tax_cuota_1":0.88,"operation_clasification_1":"S1","regime_key_1":"","total":5.1,"date":"20-06-2025","time":"9:32","claveapi":"-128"}' "C:/VELNEO/TRASPASOS/bugaderia/5.txt"
+```
+
 ## 📂 Estructura del Proyecto
 
 ```
-ExeConsultaEstado/
+ConsultaFacturaVerifactu/
 │
-├── consulta.py          # Script principal
+├── consulta.py          # Script para consultar facturas (GET)
+├── remitir.py           # Script para enviar facturas (POST)
 ├── requirements.txt     # Dependencias del proyecto
 ├── README.md           # Este archivo
 ├── venv/               # Entorno virtual (generado)
 ├── build/              # Archivos temporales de PyInstaller
-├── dist/               # Ejecutable generado
-│   └── consulta        # Ejecutable final
-└── consulta.spec       # Configuración de PyInstaller
+├── dist/               # Ejecutables generados
+│   ├── consulta.exe    # Ejecutable para consultas
+│   └── remitir.exe     # Ejecutable para remisiones
+├── consulta.spec       # Configuración de PyInstaller para consulta
+└── remitir.spec        # Configuración de PyInstaller para remitir
 ```
 
 ## 🔧 Instalación y Configuración
