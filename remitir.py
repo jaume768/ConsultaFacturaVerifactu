@@ -156,7 +156,7 @@ def main() -> None:
         print("✗ No se pudo interpretar el JSON de entrada.")
         sys.exit(1)
 
-    url = "https://verifactu.corsoft.com.es/api/invoices/"
+    url = "https://verifactu.corsoft.es/api/invoices/"
     headers = {
         "Content-Type": "application/json",
         "Authorization": f"Token {token}",

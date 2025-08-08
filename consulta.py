@@ -69,7 +69,7 @@ def main():
     nombre_archivo = sys.argv[3]
     
     # Construir la URL
-    url = f"https://verifactu.corsoft.com.es/api/invoices/{invoice_id}"
+    url = f"https://verifactu.corsoft.es/api/invoices/{invoice_id}"
     
     # Preparar headers
     headers = {
